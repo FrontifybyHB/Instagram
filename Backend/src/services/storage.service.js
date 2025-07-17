@@ -8,7 +8,7 @@ var imagekit = new ImageKit({
 });
 
 
-export async function uploadImage(file,filename) {
+export async function uploadFile(file,filename) {
     return new Promise((resolve, reject) => {
         imagekit.upload({
             file: file.buffer, // required

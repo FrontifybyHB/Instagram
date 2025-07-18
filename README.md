@@ -48,13 +48,16 @@ The app should now be running at [http://localhost:3000](http://localhost:3000).
 ## Project Structure
 
 ```
-.
-├── public/            # Static files and assets
-├── src/               # Main application source code
-│   ├── components/    # UI components (Feed, Post, Profile, etc.)
-│   ├── pages/         # Page-level components
-│   ├── services/      # API services and utilities
-│   └── App.js         # Application entry point
+backend/
+├── public/            # Static files and assets (if any, e.g., uploads)
+├── src/               # Main backend source code
+│   ├── controllers/   # Request handlers for various routes
+│   ├── models/        # Database models and schemas
+│   ├── routes/        # API route definitions
+│   ├── services/      # Business logic and utilities
+│   ├── middlewares/   # Express middlewares (auth, error handling, etc.)
+│   ├── config/        # Configuration files (env, database, etc.)
+│   └── app.js         # Entry point of the backend application
 ├── package.json
 └── README.md
 ```

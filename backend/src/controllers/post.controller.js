@@ -10,6 +10,17 @@ export async function createPostController(req, res, next) {
             uploadFile(req.file, uuidv4()),
             generateCaption(req.file)
         ]);
+        const post = await createPost({
+            image: file.url,
+            caption,
+            mentions,
+            user: req.user._id,
+        });
+
+        return res.status(201).json({
+            message: "Post created successfully",
+            post,
+        });
 
     } catch (error) {
         next(error);

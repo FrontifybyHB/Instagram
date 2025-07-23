@@ -10,7 +10,7 @@ export async function generateCaption(file) {
     const contents = [
         {
             inlineData: {
-                mimeType: "image/jpeg",
+                mimeType: file.mimetype,
                 data: base64ImageFile,
             },
         },

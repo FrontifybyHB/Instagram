@@ -6,13 +6,12 @@ import { createPost } from '../dao/post.dao.js'
 export async function createPostController(req, res, next) {
     try {
         const { mentions } = req.body;
-        // console.log(req.file);
+        
         const [file, caption] = await Promise.all([
             uploadFile(req.file.buffer, uuidv4()),
             generateCaption(req.file)
         ]);
 
-        // console.log(file, caption);
 
         const postData = await createPost({
             mentions,

@@ -4,9 +4,15 @@ import multer from 'multer'
 import { createPostController } from '../controllers/post.controller.js'
 import { authMiddleware } from '../middlewares/auth.middleware.js'
 
-const upload = multer({ storage: multer.memoryStorage() });
+const storage = multer.memoryStorage()
+const upload = multer({ storage: storage })
 
 
-router.post('/posts', authMiddleware, upload.single("image"), createPostController)
+router.post(
+    '/',
+    authMiddleware,
+    upload.single('image'),
+    createPostController
+)
 
 export default router

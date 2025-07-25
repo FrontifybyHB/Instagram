@@ -15,10 +15,19 @@ export async function generateCaption(file) {
             },
         },
         { text: "Caption this image." },
+
     ];
     const response = await ai.models.generateContent({
         model: "gemini-2.5-flash",
         contents: contents,
+        config: {
+            systemInstruction: `
+            You have to analyze the image and generate a caption in simple text format.
+            and also use emojis in the caption. 
+            and also use hashtags in the caption.
+            and the caption should be in 100 characters.
+            `
+        }
     });
     return response.text;
 }

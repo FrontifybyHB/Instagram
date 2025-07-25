@@ -13,11 +13,13 @@ export function uploadFile(file, filename) {
             file: file,
             fileName: filename,
             folder: '/instagram/posts'
-        })
-        if (error) {
-            reject(error);
-        } else {
-            resolve(response);
-        }
+        }, function(error, result) {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(result);
+            }
+        });
+        
     })
 }

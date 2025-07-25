@@ -1,6 +1,7 @@
 import express from 'express';
 import errorHandler from './middlewares/errorHandler.js'
 import authRouter from './routers/auth.routes.js'
+import postRouter from './routers/post.routes.js'
 import cookieParser from 'cookie-parser'
 
 const app = express()
@@ -10,6 +11,7 @@ app.use(cookieParser())
 
 
 app.use('/auth', authRouter)
+app.use('/posts', postRouter)
 
 app.use(errorHandler)
 

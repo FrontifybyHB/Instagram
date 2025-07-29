@@ -25,3 +25,10 @@ export async function createPostController(req,res){
     })
     
 }
+
+
+export async function getPostController(req,res){
+
+
+    
+}

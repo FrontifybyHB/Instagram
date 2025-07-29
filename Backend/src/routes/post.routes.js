@@ -1,6 +1,6 @@
 import express from "express";
 import { authMiddleware } from "../middlewares/auth.middleware.js";
-import { createPostController } from "../controllers/post.controller.js";
+import { createPostController,getPostController } from "../controllers/post.controller.js";
 import multer from "multer";
 
 
@@ -16,5 +16,8 @@ router.post('/',
     upload.single("image"), // req.file
     createPostController)
 
-
+router.get('/',
+    authMiddleware,
+    getPostController
+)
 export default router;

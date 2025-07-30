@@ -1,5 +1,5 @@
 import { query, body, validationResult } from 'express-validator';
-
+import mongoose from "mongoose";
 export const registerValidator = [
     body('username')
         .notEmpty()
@@ -31,6 +31,31 @@ export const getPostValidator = [
         .withMessage('Limit must be a number')
         .custom((value) => value >= 1 && value <= 20)
         .withMessage('Limit must be between 1 and 20'),
+    (req, res, next) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+        next();
+    }
+]
+
+export const createCommentValidator = [
+    body('post')
+        .notEmpty()
+        .withMessage('Post is required')
+        .custom((value)=>{
+            if(!mongoose.Types.ObjectId.isValid(value)){
+                return false;
+            }
+            return true;
+        })
+        .withMessage('Post is invalid'),
+    body('text')
+        .notEmpty()
+        .withMessage('Text is required')
+        .isLength({ min: 1, max: 500 })
+        .withMessage('Text must be between 1 and 500 characters'),
     (req, res, next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {

@@ -2,6 +2,7 @@ import { generateCaption } from '../services/ai.service.js'
 import { uploadFile } from '../services/storage.service.js'
 import { v4 as uuidv4 } from 'uuid'
 import { createPost, getPosts } from '../dao/post.dao.js'
+import { createComment } from '../dao/comment.dao.js'
 
 export async function createPostController(req, res, next) {
     try {
@@ -41,4 +42,20 @@ export async function getPostsController(req, res, next) {
     } catch (error) {
         next(error);
     }
+}
+
+export async function commentController(req, res, next) {
+    const { post, text } = req.body;
+    const user = req.user._id;
+
+    const comment = await createComment({
+        post,
+        text,
+        user,
+    });
+
+    return res.status(201).json({
+        message: "Comment created successfully",
+        comment,
+    });
 }

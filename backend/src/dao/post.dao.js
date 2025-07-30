@@ -10,3 +10,11 @@ export async function createPost(data) {
         user,
     });
 }
+
+export async function getPosts(skip = 0, limit = 10) {
+    return await postModel
+        .find()
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(limit)
+}

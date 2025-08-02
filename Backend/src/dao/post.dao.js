@@ -21,6 +21,7 @@ export async function getPosts(skip=0, limit=10) {
         .sort({ createdAt: -1 }) // Sort by creation date, newest first
         .skip(skip)
         .limit(limit)
+       
 
     return posts
 }

@@ -64,3 +64,23 @@ export const createCommentValidator = [
         next();
     }
 ]
+
+export const createLikeValidator = [
+    body('post')
+        .notEmpty()
+        .withMessage('Post is required')
+        .custom((value)=>{
+            if(!mongoose.Types.ObjectId.isValid(value)){
+                return false;
+            }
+            return true;
+        })
+        .withMessage('Post is invalid'),
+    (req, res, next) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+        next();
+    }
+]

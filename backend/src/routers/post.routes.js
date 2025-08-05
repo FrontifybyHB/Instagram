@@ -1,9 +1,9 @@
 import express from 'express'
 const router = express.Router()
 import multer from 'multer'
-import { createPostController, getPostsController, commentController } from '../controllers/post.controller.js'
+import { createPostController, getPostsController, commentController, likeController } from '../controllers/post.controller.js'
 import { authMiddleware } from '../middlewares/auth.middleware.js'
-import { getPostValidator, createCommentValidator } from '../middlewares/validator.middleaware.js'
+import { getPostValidator, createCommentValidator, createLikeValidator } from '../middlewares/validator.middleaware.js'
 
 const storage = multer.memoryStorage()
 const upload = multer({ storage: storage })
@@ -16,16 +16,25 @@ router.post(
     createPostController
 )
 
-router.get('/',
+router.get(
+    '/',
     getPostValidator,
     authMiddleware,
     getPostsController
 )
 
-router.post('/comment',
+router.post(
+    '/comment',
     createCommentValidator,
     authMiddleware,
     commentController
+)
+
+router.post(
+    '/like',
+    createLikeValidator, 
+    authMiddleware, 
+    likeController
 )
 
 export default router

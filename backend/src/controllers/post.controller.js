@@ -3,6 +3,7 @@ import { uploadFile } from '../services/storage.service.js'
 import { v4 as uuidv4 } from 'uuid'
 import { createPost, getPosts } from '../dao/post.dao.js'
 import { createComment } from '../dao/comment.dao.js'
+import { isUserLikedPost, unlikePost, createLike } from '../dao/like.dao.js'
 
 export async function createPostController(req, res, next) {
     try {
@@ -58,4 +59,32 @@ export async function commentController(req, res, next) {
         message: "Comment created successfully",
         comment,
     });
+}
+
+export async function likeController(req, res, next) {
+    try {
+        const { post } = req.body;
+        const user = req.user._id;
+
+        const isPostLiked = await isUserLikedPost(user, post);
+
+        if (isPostLiked) {
+            await unlikePost(user, post);
+            return res.status(200).json({
+                message: "Post unliked successfully",
+            });
+        }
+
+        await createLike({
+            user,
+            post,
+        });
+
+        return res.status(200).json({
+            message: "Post liked successfully",
+        });
+
+    } catch (error) {
+        next(error);
+    }
 }

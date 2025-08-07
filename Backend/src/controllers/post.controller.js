@@ -65,7 +65,6 @@ export async function createLikeController(req, res) {
     const isLikeAlreadyExists = await isLikeExists({ user: user._id, post })
 
     if (isLikeAlreadyExists) {
-
         await deleteLike({ user: user._id, post })
 
         return res.status(200).json({

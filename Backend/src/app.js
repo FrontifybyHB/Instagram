@@ -7,8 +7,12 @@ const app = express()
 app.use(express.json())
 app.use(cookieParser())
 
-app.use('/auth',authRoutes)
-app.use('/posts',postRoutes)
+
+app.get("/", (req, res) => {
+    res.send("Welcome to the API")
+})
+app.use('/auth', authRoutes)
+app.use('/posts', postRoutes)
 
 
 export default app

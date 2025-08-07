@@ -24,8 +24,6 @@ router.get('/',
     getPostController
 )
 
-
-
 router.post('/comment',
     createCommentValidator,
     authMiddleware,

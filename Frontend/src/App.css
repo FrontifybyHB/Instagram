@@ -72,3 +72,37 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
 
 /* Card utility */
 .card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1rem; }
+
+/* --- Feed --- */
+.feed {
+  width: 100%;
+  max-width: 600px; /* desktop centered width */
+  margin: 0 auto;   /* center on larger screens */
+  display: grid;
+  gap: 16px;        /* space between posts */
+}
+
+.post { padding: 0; overflow: hidden; }
+.post-header { display: flex; align-items: center; gap: 10px; padding: 12px; }
+.avatar { width: 40px; height: 40px; border-radius: 999px; object-fit: cover; border: 1px solid var(--border); }
+.username { color: var(--text); }
+
+.post-media { background: var(--bg); }
+.post-image { display: block; width: 100%; height: auto; }
+
+.post-actions { display: flex; gap: 8px; padding: 8px 12px; border-top: 1px solid var(--border); }
+.icon-btn {
+  appearance: none;
+  background: transparent;
+  border: none;
+  padding: 6px 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 20px;
+}
+.icon-btn:hover { background: color-mix(in oklab, var(--border), transparent 70%); }
+
+.post-body { padding: 8px 12px 12px; display: grid; gap: 6px; }
+.likes { font-weight: 700; }
+.caption, .comment { color: var(--text); }
+.comment { color: var(--text); opacity: 0.9; }

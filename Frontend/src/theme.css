@@ -14,14 +14,17 @@
   /* Extra (existing usage) */
   --muted: #6b7280;
   --primary: #2563eb;
+
+  /* Let UA components follow light scheme by default; toggles with media query below */
+  color-scheme: light;
 }
 
 /* Dark theme overrides */
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #0b1220;
+    --bg: #090b0f;
     --text: #e5e7eb;
-    --card: #111827;
+    --card: #000000;
     --border: #1f2937;
 
     --button-bg: #3b82f6;
@@ -29,5 +32,8 @@
 
     --muted: #9ca3af;
     --primary: #3b82f6;
+
+  /* Hint to the browser for dark form controls, scrollbars, etc. */
+  color-scheme: dark;
   }
 }

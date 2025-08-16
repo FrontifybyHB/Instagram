@@ -35,45 +35,22 @@ const posts = [
   },
 ]
 
+import PostCard from '../components/PostCard.jsx'
+
 export default function Home() {
   return (
     <div className="container">
       <div className="feed" aria-label="Home feed">
         {posts.map(post => (
-          <article key={post.id} className="post card">
-            <header className="post-header">
-              <img className="avatar" src={post.user.avatar} alt={`${post.user.name} avatar`} />
-              <div className="user">
-                <strong className="username">{post.user.name}</strong>
-              </div>
-            </header>
-
-            <div className="post-media">
-              <img className="post-image" src={post.image} alt="Post media" />
-            </div>
-
-            <div className="post-actions" aria-label="Post actions">
-              <button className="icon-btn" aria-label="Like">❤️</button>
-              <button className="icon-btn" aria-label="Comment">💬</button>
-              <button className="icon-btn" aria-label="Share">📤</button>
-            </div>
-
-            <div className="post-body">
-              <div className="likes">{post.likes.toLocaleString()} likes</div>
-              <div className="caption">
-                <strong className="username">{post.user.name}</strong>
-                <span> {post.caption}</span>
-              </div>
-              <div className="post-comments">
-                {post.comments.slice(0, 2).map((c, idx) => (
-                  <div key={idx} className="comment">
-                    <strong className="username">{c.user}</strong>
-                    <span> {c.text}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </article>
+          <PostCard
+            key={post.id}
+            username={post.user.name}
+            avatarUrl={post.user.avatar}
+            postImage={post.image}
+            likesCount={post.likes}
+            caption={post.caption}
+            comments={post.comments}
+          />
         ))}
       </div>
     </div>

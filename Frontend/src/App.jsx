@@ -1,5 +1,4 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
-import NavBar from './components/NavBar.jsx'
 import Layout from './components/Layout.jsx'
 import Register from './pages/Register.jsx'
 import Login from './pages/Login.jsx'
@@ -16,9 +15,12 @@ export default function App() {
       <div className="content">
         <Routes>
           <Route path="/" element={<Navigate to="/home" replace />} />
+          {/* Auth routes without layout (no navigation) */}
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+
+          {/* App routes with layout (with navigation) */}
           <Route element={<Layout />}>
-            <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login />} />
             <Route path="/home" element={<Home />} />
             <Route path="/chat" element={<Chat />} />
             <Route path="/conversation" element={<Conversation />} />

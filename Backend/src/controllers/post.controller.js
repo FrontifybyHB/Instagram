@@ -1,37 +1,42 @@
 import { uploadFile } from "../services/storage.service.js"
 import { generateCaption } from "../services/ai.service.js"
 import { v4 as uuidv4 } from "uuid"
-import { createPost, getPosts } from "../dao/post.dao.js"
+import { createPost, getPosts, incrementLikeCount } from "../dao/post.dao.js"
 import { createComment, } from "../dao/comment.dao.js"
 import { createLike, isLikeExists, deleteLike } from "../dao/like.dao.js"
 
 /* image , mentions? */
 
 export async function createPostController(req, res) {
-    const { mentions } = req.body
+    try {
 
-    const [ file, caption ] = await Promise.all([
-        uploadFile(req.file, uuidv4()), // 4s
-        generateCaption(req.file) // 10s
-    ])
+        const { mentions } = req.body
 
-    const post = await createPost({
-        mentions,
-        url: file.url,
-        caption,
-        user: req.user._id
-    })
+        console.log(req.file, mentions)
 
-    res.status(201).json({
-        message: "Post created successfully",
-        post
-    })
+        const [ file, caption ] = await Promise.all([
+            uploadFile(req.file, uuidv4()), // 4s
+            generateCaption(req.file) // 10s
+        ])
 
+        const post = await createPost({
+            mentions,
+            url: file.url,
+            caption,
+            user: req.user._id
+        })
+
+        res.status(201).json({
+            message: "Post created successfully",
+            post
+        })
+
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 export async function getPostController(req, res) {
-
-
     const posts = await getPosts(req.query.skip, Math.min(req.query.limit, 20))
 
     return res.status(200).json({
@@ -66,17 +71,21 @@ export async function createLikeController(req, res) {
 
     if (isLikeAlreadyExists) {
         await deleteLike({ user: user._id, post })
-
+        await incrementLikeCount(post, -1)
         return res.status(200).json({
-            message: "Like removed successfully"
+            message: "Like removed successfully",
+            isLiked: false,
         })
     }
+
+    await incrementLikeCount(post, 1)
 
     const like = await createLike({ user: user._id, post })
 
     res.status(201).json({
         message: "Post liked successfully",
-        like
+        like,
+        isLiked: true
     })
 
 }

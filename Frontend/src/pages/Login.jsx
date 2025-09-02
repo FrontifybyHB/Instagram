@@ -1,18 +1,24 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 export default function Login() {
-  const [form, setForm] = useState({ email: '', password: '' })
-
+  const [ form, setForm ] = useState({ email: '', password: '' })
+  const navigate = useNavigate()
+  
   function handleChange(e) {
     const { name, value } = e.target
-    setForm(prev => ({ ...prev, [name]: value }))
+    setForm(prev => ({ ...prev, [ name ]: value }))
   }
 
   function handleSubmit(e) {
     e.preventDefault()
-    // TODO: hook up to API
-    console.log('Login form submitted', form)
+    axios.post("http://localhost:3000/auth/login", form, { withCredentials: true }).then(response => {
+      console.log(response.data)
+      navigate("/")
+    })
+
   }
 
   return (

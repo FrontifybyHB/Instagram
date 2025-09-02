@@ -1,5 +1,20 @@
-export default function PostCard({ username, avatarUrl, postImage, likesCount, caption, comments = [] }) {
+import axios from 'axios'
+
+
+export default function PostCard({id, username, avatarUrl, postImage, likesCount, caption, comments = [],setPosts }) {
   const preview = Array.isArray(comments) ? comments.slice(0, 2) : []
+
+  const likePost = () => {
+
+    axios.post("http://localhost:3000/posts/like",{
+      post: id
+    },{withCredentials:true}).then(response=>{
+      console.log(response.data)
+      setPosts(prevPosts => prevPosts.map(post => post._id === id ? { ...post, likeCount: response.data.isLiked ? post.likeCount + 1 : post.likeCount - 1 } : post));
+    })
+
+  }
+
 
   return (
     <article className="post card">
@@ -15,7 +30,7 @@ export default function PostCard({ username, avatarUrl, postImage, likesCount, c
       </div>
 
       <div className="post-actions" aria-label="Post actions">
-        <button className="icon-btn" aria-label="Like">❤️</button>
+        <button onClick={likePost} className="icon-btn" aria-label="Like">❤️</button>
         <button className="icon-btn" aria-label="Comment">💬</button>
         <button className="icon-btn" aria-label="Share">📤</button>
       </div>

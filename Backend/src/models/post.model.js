@@ -3,29 +3,33 @@ import mongoose from "mongoose";
 
 
 const postSchema = new mongoose.Schema({
-    image:{
+    image: {
         type: String,
         required: true
     },
-    caption:{
+    caption: {
         type: String,
         required: true
     },
-    user:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'users'
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user'
     },
-    mentions:[
+    likeCount: {
+        type: Number,
+        default: 0
+    },
+    mentions: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'users'
         }
     ]
-},{
+}, {
     timestamps: true
 })
 
-const Post = mongoose.model('posts',postSchema)
+const Post = mongoose.model('posts', postSchema)
 
 
 export default Post;

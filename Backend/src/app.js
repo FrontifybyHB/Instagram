@@ -4,8 +4,15 @@ import authRoutes from "./routes/auth.routes.js"
 import postRoutes from "./routes/post.routes.js"
 import chatRoutes from "./routes/chat.routes.js"
 import cors from "cors"
+// ...existing code...
+
+// ...existing code...
+
 
 const app = express()
+
+app.use(express.static("public"))
+
 app.use(cors({
     origin: "http://localhost:5173",
     credentials: true

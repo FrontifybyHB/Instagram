@@ -33,3 +33,4 @@ export async function generateCaption(file) {
 
     return response.text
 }
+

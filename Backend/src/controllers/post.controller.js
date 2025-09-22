@@ -10,9 +10,9 @@ import { createLike, isLikeExists, deleteLike } from "../dao/like.dao.js"
 export async function createPostController(req, res) {
     try {
 
-        const { mentions } = req.body
+        const { mentions = [] } = req.body
 
-        console.log(req.file, mentions)
+        // console.log(req.file, mentions)
 
         const [ file, caption ] = await Promise.all([
             uploadFile(req.file, uuidv4()), // 4s

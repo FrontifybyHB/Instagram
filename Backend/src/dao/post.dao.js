@@ -3,7 +3,7 @@ import userModel from "../models/user.model.js"
 
 export async function createPost(data) {
 
-    const { mentions, url, caption, user } = data
+    const { mentions = [], url, caption, user } = data
 
 
 
@@ -11,9 +11,13 @@ export async function createPost(data) {
         image: url,
         caption,
         user,
-        mentions: await Promise.all(mentions.split(",").map(async username => {
-            return (await userModel.findOne({ username }))._id
-        }))
+        mentions: await Promise.all(
+            mentions.split(",").map(async (username) => {
+                const user = await userModel.findOne({ username: username.trim() });
+                if (!user) throw new Error(`User not found: ${username}`);
+                return user.id;
+            })
+        )
     })
 
 }

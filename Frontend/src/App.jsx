@@ -14,7 +14,7 @@ export default function App() {
     <div className="app">
       <div className="content">
         <Routes>
-          <Route path="/" element={<Navigate to="/home" replace />} />
+          <Route path="/" element={<Navigate to="/login" replace />} />
           {/* Auth routes without layout (no navigation) */}
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />

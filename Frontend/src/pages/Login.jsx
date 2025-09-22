@@ -16,7 +16,7 @@ export default function Login() {
     e.preventDefault()
     axios.post("http://localhost:3000/auth/login", form, { withCredentials: true }).then(response => {
       console.log(response.data)
-      navigate("/")
+      navigate("/home")
     })
 
   }

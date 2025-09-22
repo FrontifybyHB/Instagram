@@ -4,6 +4,7 @@ import authRoutes from "./routes/auth.routes.js"
 import postRoutes from "./routes/post.routes.js"
 import chatRoutes from "./routes/chat.routes.js"
 import cors from "cors"
+import morgan from 'morgan'
 // ...existing code...
 
 // ...existing code...
@@ -18,6 +19,7 @@ app.use(cors({
     credentials: true
 }))
 app.use(express.json())
+app.use(morgan('dev'));
 app.use(cookieParser())
 
 

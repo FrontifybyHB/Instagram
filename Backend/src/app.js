@@ -6,22 +6,19 @@ import chatRoutes from "./routes/chat.routes.js"
 import config from './config/config.js'
 import cors from "cors"
 import morgan from 'morgan'
-// ...existing code...
-
-// ...existing code...
-
 
 const app = express()
 
 app.use(express.static("public"))
 
-app.use(cors({
-    origin: ["http://localhost:3000", config.FRONTEND_URL],
-    credentials: true
-}))
 app.use(express.json())
+app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 app.use(cookieParser())
+app.use(cors({
+    origin: ["http://localhost:3000", config.FRONTEND_URL, "http://localhost:5173"],
+    credentials: true
+}))
 
 
 app.get("/helth", (req, res) => {

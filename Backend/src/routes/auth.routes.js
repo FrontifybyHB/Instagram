@@ -9,7 +9,9 @@ router.post('/register',
     registerValidator,
     registerController
 )
-router.post('/login',loginController)
+router.post('/login',
+    loginController
+)
 
 
 export default router;

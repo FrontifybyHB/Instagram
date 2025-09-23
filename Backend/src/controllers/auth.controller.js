@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
 import userModel from "../models/user.model.js";
-import { createUser ,findUser,findOneUser} from "../dao/user.dao.js";
+import { createUser, findUser, findOneUser } from "../dao/user.dao.js";
 import jwt from "jsonwebtoken";
 import config from "../config/config.js"
 
@@ -32,10 +32,10 @@ export async function registerController(req, res) {
         password: hashedPassword
     })
 
-    const token = jwt.sign({_id:user._id},config.JWT_SECRET)
+    const token = jwt.sign({ _id: user._id }, config.JWT_SECRET)
 
-    res.cookie("token",token)
-    
+    res.cookie("token", token)
+
     return res.status(201).json({
         message: "User registered successfully",
         user: {
@@ -48,29 +48,29 @@ export async function registerController(req, res) {
     })
 }
 
-export async function loginController(req,res) {
+export async function loginController(req, res) {
 
-    const {email,password,username} = req.body
+    const { email, password, username } = req.body
 
-    const user =await findOneUser({$or:[{email},{username}]})
+    const user = await findOneUser({ $or: [{ email }, { username }] })
 
-    if(!user){
+    if (!user) {
         return res.status(400).json({
-            message:"Invalid Credentials"
+            message: "Invalid Credentials"
         })
     }
 
-    const isPasswordValid = await bcrypt.compare(password,user.password)
+    const isPasswordValid = await bcrypt.compare(password, user.password)
 
-    if(!isPasswordValid){
+    if (!isPasswordValid) {
         return res.status(400).json({
-            message:"Invalid Credentials"
+            message: "Invalid Credentials"
         })
     }
 
-    const token = jwt.sign({_id:user._id},config.JWT_SECRET)
+    const token = jwt.sign({ _id: user._id }, config.JWT_SECRET)
 
-    res.cookie("token",token)
+    res.cookie("token", token)
 
     return res.status(200).json({
         message: "User logged in successfully",
@@ -82,5 +82,5 @@ export async function loginController(req,res) {
             image: user.image
         }
     })
-    
+
 }

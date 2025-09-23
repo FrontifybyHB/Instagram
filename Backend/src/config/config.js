@@ -9,6 +9,7 @@ const config ={
     IMAGEKIT_PRIVATE_KEY: process.env.IMAGEKIT_PRIVATE_KEY,
     IMAGEKIT_URL_ENDPOINT: process.env.IMAGEKIT_URL_ENDPOINT,
     GEMINI_API_KEY: process.env.GEMINI_API_KEY,
+    FRONTEND_URL: process.env.FRONTEND_URL
 }
 
 

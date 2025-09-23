@@ -17,8 +17,12 @@ export default function Register() {
       setError('Passwords do not match')
       return
     }
-    // TODO: hook up to API
-    console.log('Register form submitted', form)
+    
+    axios.post("https://instagram-blap.onrender.com/auth/register", form, { withCredentials: true }).then(response => {
+      console.log(response.data)
+      navigate("/home")
+    })
+
   }
 
   return (

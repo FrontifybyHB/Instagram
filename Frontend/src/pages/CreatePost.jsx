@@ -54,7 +54,7 @@ export default function CreatePost() {
     formData.append('image', imageFile)
     formData.append('mentions', mentions)
 
-    axios.post("http://localhost:3000/posts", formData, {withCredentials:true})
+    axios.post("https://instagram-blap.onrender.com/posts", formData, {withCredentials:true})
     .then(response=>{
       console.log(response.data)
     })

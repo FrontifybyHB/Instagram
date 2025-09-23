@@ -47,7 +47,7 @@ export default function Home() {
 
 
   useEffect(() => {
-    axios.get("http://localhost:3000/posts?skip=0&limit=20",{withCredentials:true}).then(response=>{
+    axios.get("https://instagram-blap.onrender.com/posts?skip=0&limit=20",{withCredentials:true}).then(response=>{
       console.log(response.data)
       setPosts(response.data.posts)
     })

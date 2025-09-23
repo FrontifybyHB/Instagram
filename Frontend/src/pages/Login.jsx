@@ -14,7 +14,7 @@ export default function Login() {
 
   function handleSubmit(e) {
     e.preventDefault()
-    axios.post("http://localhost:3000/auth/login", form, { withCredentials: true }).then(response => {
+    axios.post("https://instagram-blap.onrender.com/auth/login", form, { withCredentials: true }).then(response => {
       console.log(response.data)
       navigate("/home")
     })
